@@ -1,0 +1,15 @@
+<img src="https://raw.githubusercontent.com/The-FireHub-Project/the-firehub-project.github.io/master/resources/graphics/logo/firehub.svg" width="100%" height="100px">
+
+# About
+
+phpDocumentor template used by FireHub to create documentation on the [offical FireHub website](https://the-firehub-project.github.io/) and Core [Wiki pages](https://github.com/The-FireHub-Project/TheCore/wiki).
+
+# Installation
+
+[//]: # (TODO: Add instalation description)
+The maintainer of this repo has not yet edited this section.
+
+# Documentation
+
+[//]: # (TODO: Add documentation description)
+The maintainer of this repo has not yet edited this section.
