@@ -16,6 +16,11 @@ phpDocumentor template used by FireHub to create documentation on the [offical F
 
 ## Installation
 
+[//]: # (TODO: Add Packagist badges)
+<!--
+![Packagist Stars](https://img.shields.io/packagist/stars/firehub/documentor)
+-->
+
 [//]: # (TODO: Add instalation description)
 The maintainer of this repo has not yet edited this section.
 
