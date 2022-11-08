@@ -8,6 +8,10 @@
 
 ## About
 
+[![GitHub Discussions](https://img.shields.io/github/discussions/The-FireHub-Project/TheCore?style=flat&labelColor=30363d)](https://github.com/orgs/The-FireHub-Project/discussions)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/The-FireHub-Project/Documentor/master?style=flat&labelColor=30363d)
+![Website](https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Fthe-firehub-project.github.io%2F?style=flat&labelColor=30363d)
+
 phpDocumentor template used by FireHub to create documentation on the [offical FireHub website](https://the-firehub-project.github.io/) and Core [Wiki pages](https://github.com/The-FireHub-Project/TheCore/wiki).
 
 ## Installation
@@ -21,6 +25,10 @@ The maintainer of this repo has not yet edited this section.
 The maintainer of this repo has not yet edited this section.
 
 ## Community
+
+![GitHub watchers](https://img.shields.io/github/watchers/The-FireHub-Project/documentor?style=social)
+![GitHub Repo stars](https://img.shields.io/github/stars/The-FireHub-Project/documentor?style=social)
+![GitHub forks](https://img.shields.io/github/forks/The-FireHub-Project/documentor?style=social)
 
 Be sure to review the [Code of Conduct](https://github.com/The-FireHub-Project/.github/blob/master/.github/CODE_OF_CONDUCT.md).<br>
 Read our [Support](https://github.com/The-FireHub-Project/.github/blob/master/.github/SUPPORT.md) file that explains how you can get help with the repository and project.<br>
