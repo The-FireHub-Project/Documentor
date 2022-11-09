@@ -1,0 +1,43 @@
+{
+    "name": "firehub/documentor",
+    "description": "phpDocumentor template for FireHub",
+    "type": "library",
+    "keywords": ["phpdocumentor", "firehub"],
+    "homepage": "https://the-firehub-project.github.io/",
+    "license": "OSL-3.0",
+    "require": {},
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Danijel Galić",
+            "email": "danijel.galic@outlook.com",
+            "homepage": "https://github.com/dieselxxx",
+            "role": "Owner"
+        }
+    ],
+    "support": {
+        "email": "danijel.galic@outlook.com",
+        "issues": "https://github.com/The-FireHub-Project/Documentor/issues",
+        "forum": "https://github.com/orgs/The-FireHub-Project/discussions",
+        "source": "https://github.com/The-FireHub-Project/Documentor",
+        "docs": "https://the-firehub-project.github.io/documentor/"
+    },
+    "funding": [
+        {
+            "type": "patreon",
+            "url": "https://www.patreon.com/firehub"
+        }
+    ],
+    "config": {
+        "process-timeout": 300,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "disable-tls": false,
+        "secure-http": true,
+        "vendor-dir": "vendor",
+        "bin-dir": "vendor/bin",
+        "prepend-autoloader": false,
+        "sort-packages": true
+}
