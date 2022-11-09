@@ -10,6 +10,7 @@
 
 [![GitHub Discussions](https://img.shields.io/github/discussions/The-FireHub-Project/TheCore?style=flat&labelColor=30363d)](https://github.com/orgs/The-FireHub-Project/discussions)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/The-FireHub-Project/Documentor/master?style=flat&labelColor=30363d)
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/The-FireHub-Project/documentor/master?style=flat&labelColor=30363d)
 ![GitHub contributors](https://img.shields.io/github/contributors/The-FireHub-Project/FireHub?style=flat&labelColor=30363d)
 ![Website](https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Fthe-firehub-project.github.io%2F?style=flat&labelColor=30363d)
 
