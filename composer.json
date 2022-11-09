@@ -40,4 +40,5 @@
         "bin-dir": "vendor/bin",
         "prepend-autoloader": false,
         "sort-packages": true
+    }
 }
