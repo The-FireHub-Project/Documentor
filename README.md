@@ -25,8 +25,7 @@ phpDocumentor template used by FireHub to create documentation on the [offical F
 -->
 ![GitHub all releases](https://img.shields.io/github/downloads/The-FireHub-Project/documentor/total?style=flat&labelColor=30363d)
 
-[//]: # (TODO: Add instalation description)
-The maintainer of this repo has not yet edited this section.
+Anything that has been added, changed, deprecated, fixed or removed + any security updates are in [Changelog](./CHANGELOG.md) of this version.
 
 ## Documentation
 
