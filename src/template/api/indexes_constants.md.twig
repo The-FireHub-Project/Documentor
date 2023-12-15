@@ -1,0 +1,69 @@
+{% import "macro.twig" as macro %}
+{{ macro.IndexTitle('const:', constant, constant.name|lower) }}
+
+<code-block lang="php">
+{{ macro.CodeBlockConst(constant) }}
+</code-block>
+
+{{ constant.tags.experimental|length > 0 ? macro.Experimental(constant, 'constant')|raw }}
+
+{{ constant.tags.deprecated|length > 0 ? macro.Deprecated(constant, 'constant')|raw }}
+
+{{ constant.final ? macro.Final(constant, 'constant')|raw }}
+
+{{ macro.CustomTags(constant)|raw }}
+
+{{ macro.Summary(constant)|raw }}
+
+{{ macro.Description(constant)|raw }}
+
+{{ macro.AdditionalInfoIndex(constant)|raw }}
+
+{%- for tagName,tags in constant.tags if tagName in ['since'] -%}
+{% if tags|length > 0 %}
+
+{{ macro.Since(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in constant.tags if tagName in ['uses'] -%}
+{% if tags|length > 0 %}
+
+{{ macro.Uses(tags, 'constant')|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in constant.tags if tagName in ['used-by'] -%}
+{% if tags|length > 0 %}
+
+{{ macro.UsedBy(tags, 'constant')|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in constant.tags if tagName in ['see'] -%}
+{% if tags|length > 0 %}
+
+{{ macro.See(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in constant.tags if tagName in ['link'] -%}
+{% if tags|length > 0 %}
+
+{{ macro.Link(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in constant.tags if tagName in ['diagram'] -%}
+{% if tags|length > 0 %}
+
+{{ macro.Diagram(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in constant.tags if tagName in ['math'] -%}
+{% if tags|length > 0 %}
+
+{{ macro.Math(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}

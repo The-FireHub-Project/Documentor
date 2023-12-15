@@ -1,0 +1,60 @@
+{% import "macro.twig" as macro %}
+{{ macro.IndexTitle('property:', property, '$' ~ property.name|lower) }}
+
+```php
+{{ macro.CodeBlockProperty(property) }}
+```
+
+{{ property.tags.experimental|length > 0 ? macro.Experimental(property, 'property')|raw }}
+
+{{ property.tags.deprecated|length > 0 ? macro.Deprecated(property, 'property')|raw }}
+
+{{ property.abstract ? macro.Abstract(property, 'property')|raw }}
+
+{{ property.hasReturnByReference ? macro.ByReference(property, 'property')|raw }}
+
+{{ macro.Summary(property)|raw }}
+
+{{ macro.Description(property)|raw }}
+
+{{ macro.AdditionalInfoIndex(property)|raw }}
+
+{%- for tagName,tags in property.tags if tagName in ['template'] -%}
+{% if tags|length > 0 %}
+
+#### Templates
+{{ macro.Templates(tags, 'property')|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in property.tags if tagName in ['see'] -%}
+{% if tags|length > 0 %}
+
+#### See also
+{{ macro.See(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in property.tags if tagName in ['link'] -%}
+{% if tags|length > 0 %}
+
+#### Links
+{{ macro.Link(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in property.tags if tagName in ['diagram'] -%}
+{% if tags|length > 0 %}
+
+#### Diagram
+{{ macro.Diagram(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in property.tags if tagName in ['math'] -%}
+{% if tags|length > 0 %}
+
+#### Math
+{{ macro.Math(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}

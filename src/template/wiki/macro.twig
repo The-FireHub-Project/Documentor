@@ -1,0 +1,456 @@
+{# Index Link #}
+{%- macro IndexLink(index, name) -%}
+    [{{ name }}]({{ './Wiki-' ~ index.name }})
+{%- endmacro -%}
+
+{# Var Type #}
+{%- macro varType(element) -%}
+    {%- if element.tags.var|length > 0 -%}
+        {{ element.tags.var|first.type|raw }}
+    {%- else -%}
+        {{ element.type|raw }}
+    {%- endif -%}
+{%- endmacro -%}
+
+{# Format Link By TypeName #}
+{%- macro FormatLinkByTypeName(name) -%}
+    {%- if name starts with '\\' -%}
+        [{{ name }}]({{ './Wiki-' ~ name|split('\\')|last }})
+    {%- else -%}
+        {{ name }}
+    {%- endif -%}
+{%- endmacro -%}
+
+{# Format Link By Name And\Or Property macro #}
+{%- macro FormatLinkByNameAndOrProperty(name) -%}
+    {%- set link = name|split('::')|first -%}
+    {%- set property = name|split('::')|last -%}
+    {%- if link != property -%}
+        [{{ name }}]({{ './Wiki-' ~ link|split('\\')|last ~ '.md#' ~ property|lower }})
+    {%- else -%}
+        {%- if 'www' in link or 'http' in link -%}
+            [{{ name }}]({{ link }})
+        {%- else -%}
+            [{{ name }}]({{ './Wiki-' ~ link|split('\\')|last|replace({'()': ''}) }}.md)
+        {%- endif -%}
+    {%- endif -%}
+{%- endmacro -%}
+
+{# Format Link By TypeName Multiple #}
+{%- macro FormatLinkByTypeNameMultiple(type) -%}
+{% import _self as self %}
+    {%- for type in type|split('|') -%}
+        {%- if loop.first -%}
+            {%- if '?' in type -%}
+                {%- set type = type|trim('?') -%}
+                {{ self.FormatLinkByTypeName('null') }} {{ 'or ' }}
+            {%- endif -%}
+            {%- for type in type|split('&') -%}
+                {%- if loop.first -%}
+                    {{ self.FormatLinkByTypeName(type) }}
+                {%- else -%}
+                    {{ ' and' }} {{ self.FormatLinkByTypeName(type) }}
+                {%- endif -%}
+            {%- endfor -%}
+        {%- else -%}
+            {{ ' or ' }}
+            {%- for type in type|split('&') -%}
+                {%- if loop.first -%}
+                    {{ self.FormatLinkByTypeName(type) }}
+                {%- else -%}
+                    {{ ' and' }} {{ self.FormatLinkByTypeName(type) }}
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endmacro -%}
+
+{# Code Block #}
+{%- macro CodeBlock(nodetype) -%}
+    {{- node.final ? 'final ' -}}
+    {{- node.abstract ? 'abstract ' -}}
+    {{- nodetype -}}{%- if node.type -%}{{- ' ' ~ node.type -}}{%- endif -%}
+    {%- if nodetype != 'constant' and nodetype != 'enum' and nodetype != 'interface' -%}
+        {{- ' ' ~ node.namespace -}}\{{- node.hasReturnByReference ? '&' -}}{{- node.name -}}
+        ({%- for parameter in node.arguments -%}
+        {{- loop.first ? parameter.type|raw : ', ' ~ parameter.type|raw -}}
+        {{- ' ' -}}
+        {{- parameter.byReference ? '&' -}}{{- parameter.isVariadic ? '...' -}}${{- parameter.name -}}
+        {{- parameter.default ? ' = ' ~ parameter.default|raw -}}
+    {%- endfor -%})
+    {%- else -%}
+        {{ ' ' ~ node.name }}{{- node.tags.return|first.type ? ' ' ~ node.tags.return|first.type -}}
+    {%- endif -%}
+    {{- node.tags.return|first.type ? ':' ~ node.tags.return|first.type -}}
+    {{- node.value ? ' = ' ~ node.value|raw -}}
+{%- endmacro -%}
+
+{# Code Block Constant #}
+{%- macro CodeBlockConst(constant) -%}
+{% import _self as self %}
+    {{- constant.final ? 'final ' -}}
+    {{ constant.visibility }} {{ self.varType(constant) }} {{ constant.name ~ ' = ' ~ constant.value|raw }}
+{%- endmacro -%}
+
+{# Code Block Property #}
+{%- macro CodeBlockProperty(property) -%}
+{% import _self as self %}
+    {{- property.line == 0 ? 'magic ' -}}
+    {{- property.writeOnly ? 'writeonly ' -}}
+    {{- property.readOnly ? 'readonly ' -}}
+    {{- property.visibility ~ ' ' -}}
+    {{- property.static or property.description.bodyTemplate starts with '{static}' ? 'static ' -}}
+    {{ self.varType(property) }} ${{ property.name }}
+    {{- property.default ? ' = ' ~ property.default|raw -}}
+{%- endmacro -%}
+
+{# Code Block Method #}
+{%- macro CodeBlockMethod(method) -%}
+{% import _self as self %}
+    {{- method.abstract ? 'abstract ' -}}
+    {{- method.final ? 'final ' -}}
+    {{- method.visibility ~ ' ' -}}
+    {{- method.static ? 'static ' -}}
+    {{- method.parent.name }}::{{ method.hasReturnByReference ? '&' }}{{ method.name -}}
+    ({%- for parameter in method.arguments -%}
+        {%- if loop.first -%}
+            {{ parameter.type|raw }} {{ parameter.byReference ? '&' }}{{ parameter.isVariadic ? '...' }}${{ parameter.name }}
+            {%- if parameter.default -%}{{ ' = ' ~ parameter.default|raw }}{%- endif -%}
+        {%- else -%}
+            , {{ parameter.type|raw }} {{ parameter.byReference ? '&' }}{{ parameter.isVariadic ? '...' }}${{ parameter.name }}
+            {%- if parameter.default -%}{{ ' = ' ~ parameter.default|raw }}{%- endif -%}
+        {%- endif -%}
+{%- endfor -%})
+    {%- if method.tags.return|first.type -%}:{{ method.tags.return|first.type }}{%- endif -%}
+{%- endmacro -%}
+
+{# Code Block Case #}
+{%- macro CodeBlockCase(case) -%}
+    {{ case.name }}{% if case.value %}{{ ' = ' ~ case.value|raw }}{% endif %}
+{%- endmacro -%}
+
+{# Experimental #}
+{%- macro Experimental(node, nodetype) -%}
+    > [!WARNING]
+    This {{ nodetype }} has **experimental** flag.
+    <br/>This feature is still under the development phase and not ready to be deployed into the actual software or product.
+    {%- if node.tags.experimental|first.description|length > 0 -%}<br/>{{- node.tags.experimental|first.description|raw -}}{%- endif -%}
+{%- endmacro -%}
+
+{# Deprecated #}
+{%- macro Deprecated(node, nodetype) -%}
+    > [!WARNING]
+    This {{ nodetype }} is **deprecated**{{- node.tags.deprecated|first.version > 0 ? ' in version ' ~ node.tags.deprecated|first.version -}}.
+    {%- if node.tags.deprecated|first.description|length > 0 -%}<br/>{{- node.tags.deprecated|first.description|raw -}}{%- endif -%}
+{%- endmacro -%}
+
+{# Final #}
+{%- macro Final(node, nodetype) -%}
+> [!IMPORTANT]
+This {{ nodetype }} is marked as **final**.
+{%- endmacro -%}
+
+{# Abstract #}
+{%- macro Abstract(node, nodetype) -%}
+> [!IMPORTANT]
+This is an **abstract** {{ nodetype }} that cannot be instantiated directly.
+{%- endmacro -%}
+
+{# ByReference #}
+{%- macro ByReference(node, nodetype) -%}
+> [!NOTE]
+This {{ nodetype }} is returned by **refrence**.
+{%- endmacro -%}
+
+{# FileInfo #}
+{%- macro FileInfo(node, nodetype) -%}
+    {%- if node.file.author|length > 0 -%}
+        <sub>_This {{ nodetype }} was created by {% for tag in node.file.author %}{% if loop.first %}{{ tag.description|escape }}{% else %} and {{ tag.description|escape }}{% endif %}{% endfor %}_</sub><br/>
+    {%- endif -%}
+    {%- if node.file.tags.copyright|length > 0 -%}
+        <sub>_Copyright: {{ node.file.tags.copyright|first.description|raw }}_</sub><br/>
+    {%- endif -%}
+    {%- if node.file.tags.license|length > 0 -%}
+        <sub>_License: {{ node.file.tags.license|first.description|raw|escape }}_</sub><br/>
+    {%- endif -%}
+    {%- if node.file.version|length > 0 -%}
+        <sub>_Version: {{ node.file.version|first.version }} {{ node.file.version|first.description|raw }}_</sub>
+    {%- endif -%}
+{%- endmacro -%}
+
+{# Summary #}
+{%- macro Summary(node) -%}
+    {%- if node.summary|length > 0 -%}
+        ### {{ node.summary|raw }}
+    {%- endif -%}
+{%- endmacro -%}
+
+{# Description #}
+{%- macro Description(node) -%}
+    {%- if node.description|length > 0 -%}
+        _{{ node.description|raw }}_
+    {%- endif -%}
+{%- endmacro -%}
+
+{# Additional Info #}
+{%- macro AdditionalInfo(node, nodetype) -%}
+    {%- if node.FullyQualifiedStructuralElementName|length > 0 -%}
+        ><sub>Fully Qualified {{ nodetype|capitalize }} Name:  **{{ node.FullyQualifiedStructuralElementName }}**</sub><br/>
+    {% endif %}
+    {%- if node.line is not empty -%}
+        <sub>Source code:  **[{{ 'view source code' }}]({{ 'https://github.com/The-FireHub-Project/' ~ project.settings.custom.app_name ~ '/blob/' ~ project.settings.custom.branch ~ '/' ~ node.file ~ '#L' ~ node.line }})**</sub><br/>
+        <sub>Blame:  **[{{ 'view blame' }}]({{ 'https://github.com/The-FireHub-Project/' ~ project.settings.custom.app_name ~ '/blame/' ~ project.settings.custom.branch ~ '/' ~ node.file }})**</sub><br/>
+        <sub>History:  **[{{ 'view history' }}]({{ 'https://github.com/The-FireHub-Project/' ~ project.settings.custom.app_name ~ '/commits/' ~ project.settings.custom.branch ~ '/' ~ node.file }})**</sub>
+    {%- endif -%}
+{%- endmacro -%}
+
+{# Additional Info Index #}
+{%- macro AdditionalInfoIndex(node) -%}
+    {%- if node.line is not empty -%}
+        ><sub>Source code:  **[{{ 'view source code' }}]({{ 'https://github.com/The-FireHub-Project/' ~ project.settings.custom.app_name ~ '/blob/' ~ project.settings.custom.branch ~ '/' ~ node.file ~ '#L' ~ node.line }})**</sub><br/>
+        <sub>Blame:  **[{{ 'view blame' }}]({{ 'https://github.com/The-FireHub-Project/' ~ project.settings.custom.app_name ~ '/blame/' ~ project.settings.custom.branch ~ '/' ~ node.file ~ '#L' ~ node.line }})**</sub>
+    {%- endif -%}
+{%- endmacro -%}
+
+{# Templates #}
+{%- macro Templates(tags, nodetype) -%}
+    {%- for tag in tags ~%}
+* {{ tag.description|raw }}
+    {%- endfor -%}
+{%- endmacro -%}
+
+{# Parameters #}
+{%- macro Parameters(node, tags, nodetype) -%}
+    {% import _self as self %}
+    {%- for parameter in node.arguments %}
+
+* {{ parameter.byReference ? 'by reference ' }}{{ parameter.isVariadic ? 'variadic ' }}{{ self.FormatLinkByTypeNameMultiple(parameter.type) }} **${{ parameter.name }}**{% if parameter.default %} = {{ parameter.default|raw }}{% endif %}{% if parameter.description|length > 0 %} - _{{ parameter.description|striptags|trim }}_{% endif %}
+    {%- endfor -%}
+{%- endmacro -%}
+
+{# Throws #}
+{%- macro Throws(tags, nodetype) -%}
+    {% import _self as self %}
+    {%- for tag in tags %}
+
+* {{ self.FormatLinkByTypeNameMultiple(tag.type) }}{% if tag.description|length > 0 %} - _{{ tag.description|striptags|trim }}_{% endif %}
+    {%- endfor -%}
+{%- endmacro -%}
+
+{# Returns #}
+{%- macro Returns(tags, nodetype) -%}
+    {% import _self as self %}
+    {%- for tag in tags %}
+
+* {{ self.FormatLinkByTypeNameMultiple(tag.type) }}{% if tag.description|length > 0 %} - _{{ tag.description|striptags|trim }}_{% endif %}
+    {%- endfor -%}
+{%- endmacro -%}
+
+{# See #}
+{%- macro See(tags) -%}
+    {% import _self as self %}
+    {%- for tag in tags %}
+
+* {{ self.FormatLinkByNameAndOrProperty(tag.reference) }}{% if tag.description|length > 0 %} - _{{ tag.description|striptags|trim }}_{% endif %}
+    {%- endfor -%}
+{%- endmacro -%}
+
+{# Link #}
+{%- macro Link(tags) -%}
+    {% import _self as self %}
+    {%- for tag in tags %}
+
+* {{ self.FormatLinkByNameAndOrProperty(tag.link) }}{% if tag.description|length > 0 %} - _{{ tag.description|striptags|trim }}_{% endif %}
+    {%- endfor -%}
+{%- endmacro -%}
+
+{# Example #}
+{%- macro Example(tags) -%}
+    {%- for tag in tags -%}
+        {{ tag.description|raw }}
+    {%~ endfor -%}
+{%- endmacro -%}
+
+{# Diagram #}
+{%- macro Diagram(tags) -%}
+    {%- for tag in tags -%}
+        {{ tag.description|raw }}
+    {%~ endfor -%}
+{%- endmacro -%}
+
+{# Math #}
+{%- macro Math(tags) -%}
+{%- for tag in tags -%}
+{{ tag.description|raw|split('.', 2)|first ~ '.' }}
+```math
+{{ tag.description|raw|split('.', 2)|last }}
+```
+{%- endfor -%}
+{%- endmacro -%}
+
+{# Recursive Constants Table #}
+{% macro RecursiveConstantsTable(node, constants = []) %}
+{% import _self as self %}
+    {%- for constant in node.constants -%}
+        {%- if constant.name not in constants -%}
+            {%- if not constant.deprecated -%}
+                |{%- if constant.final -%}{{ 'final ' }}{%- endif -%}{{ constant.visibility }} {{ constant.type }}|<a href="#{{ constant.name|lower }}">{{ constant.name }}</a>|{{ constant.summary|raw }}|{{ constant.value }}|
+            {%- elseif constant.deprecated -%}
+                |{%- if constant.final -%}{{ 'final ' }}{%- endif -%}{{ constant.visibility }} {{ constant.type }}|<a href="#{{ constant.name|lower }}">~~{{ constant.name }}~~</a><br/><sub>@deprecated</sub>|{{ constant.summary|raw }}|{{ constant.value }}|
+            {%- endif ~%}
+        {%~ endif -%}
+        {%- set constants = constants|merge([constant.name]) -%}
+    {%- endfor -%}
+    {{ node.parent ? self.RecursiveConstantsParentTable(node.parent, constants) }}
+{% endmacro %}
+
+{# Recursive Constants Parent Table #}
+{% macro RecursiveConstantsParentTable(node, constants = []) %}
+{% import _self as self %}
+    {%- for constant in node.constants -%}
+        {%- if constant.visibility != 'private' -%}
+            {%- if constant.name not in constants -%}
+                {%- if not constant.deprecated -%}
+                    |{{ 'inherited '}} {%- if constant.final -%}{{ 'final ' }}{%- endif -%}{{ constant.visibility }} {{ constant.type }}|<a href="#{{ constant.name|lower }}">{{ constant.name }}</a>|{{ constant.summary|raw }}|{{ constant.value }}|
+                {%- elseif constant.deprecated -%}
+                    |{{ 'inherited '}} {%- if constant.final -%}{{ 'final ' }}{%- endif -%}{{ constant.visibility }} {{ constant.type }}|<a href="#{{ constant.name|lower }}">~~{{ constant.name }}~~</a><br/><sub>@deprecated</sub>|{{ constant.summary|raw }}|{{ constant.value }}|
+                {%- endif ~%}
+            {%~ endif -%}
+            {%- set constants = constants|merge([constant.name]) -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {{ node.parent ? self.RecursiveConstantsParentTable(node.parent, constants) }}
+{% endmacro %}
+
+{# Recursive Constants #}
+{% macro RecursiveConstants(node, constants = []) %}
+{% import _self as self %}
+    {%- for constant in node.constants -%}
+        {%- if constant.name not in constants ~%}
+            {%~ include 'indexes_constants.md.twig' -%}
+        {%- endif -%}
+        {%- set constants = constants|merge([constant.name]) -%}
+    {%- endfor -%}
+    {{ node.parent ? self.RecursiveConstantsParent(node.parent, constants) }}
+{% endmacro %}
+
+{# Recursive Constants Parent #}
+{% macro RecursiveConstantsParent(node, constants = []) %}
+{% import _self as self %}
+    {%- for constant in node.constants -%}
+        {%- if constant.visibility != 'private' -%}
+            {%- if constant.name not in constants ~%}
+                {%~ include 'indexes_constants.md.twig' -%}
+            {%- endif -%}
+            {%- set constants = constants|merge([constant.name]) -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {{ node.parent ? self.RecursiveConstantsParentTable(node.parent, constants) }}
+{% endmacro %}
+
+{# Cases Table #}
+{% macro CasesTable(node) %}
+    {%- for case in cases(node) -%}
+        {%- if not case.deprecated -%}
+            |<a href="#{{ case.name|lower }}">{{ case.name }}</a>|{{ case.summary|raw }}|{{ case.value }}|
+        {%- elseif case.deprecated -%}
+            |<a href="#{{ case.name|lower }}()">~~{{ case.name }}~~</a><br/><sub>@deprecated</sub>|{{ case.summary|raw }}|{{ case.value }}|
+        {%- endif ~%}
+    {%~ endfor -%}
+{% endmacro %}
+
+{# Properties Table #}
+{% macro PropertiesTable(node) %}
+    {%- for property in properties(node) -%}
+        {%- if property.parent.FullyQualifiedStructuralElementName == node.FullyQualifiedStructuralElementName -%}
+            {%- if not property.deprecated -%}
+                |{%- if property.line == 0 -%}{{ 'magic ' }}{%- endif -%}{%- if property.writeOnly -%}{{ 'writeonly ' }}{%- endif -%}{%- if property.readOnly -%}{{ 'readonly ' }}{%- endif -%}{{ property.visibility }} {%- if property.static or property.description.bodyTemplate starts with '{static}' -%}{{ 'static ' }}{%- endif -%}{{ macro.FormatLinkByTypeNameMultiple(property.type)|trim }}|<a href="#${{ property.name|lower }}">{{ property.name }}</a>|{{ property.summary|raw }}|{{ property.default }}|
+            {%- elseif property.deprecated -%}
+                |{%- if property.line == 0 -%}{{ 'magic ' }}{%- endif -%}{%- if property.writeOnly -%}{{ 'writeonly ' }}{%- endif -%}{%- if property.readOnly -%}{{ 'readonly ' }}{%- endif -%}{{ property.visibility }} {%- if property.static -%}{{ 'static ' }}{%- endif -%}{{ macro.FormatLinkByTypeNameMultiple(property.type)|trim }}|<a href="#${{ property.name|lower }}">~~{{ property.name }}~~</a><br/><sub>@deprecated</sub>|{{ property.summary|raw }}|{{ property.default }}|
+            {%- endif ~%}
+        {%~ endif -%}
+    {%- endfor -%}
+    {%- for property in properties(node) -%}
+        {%- if property.parent.FullyQualifiedStructuralElementName != node.FullyQualifiedStructuralElementName -%}
+            {%- if property.visibility != 'private' -%}
+                {%- if not property.deprecated -%}
+                    |{{ 'inherited ' }}{%- if property.line == 0 -%}{{ 'magic ' }}{%- endif -%}{%- if property.writeOnly -%}{{ 'writeonly ' }}{%- endif -%}{%- if property.readOnly -%}{{ 'readonly ' }}{%- endif -%}{{ property.visibility }} {%- if property.static or property.description.bodyTemplate starts with '{static}' -%}{{ 'static ' }}{%- endif -%}{{ macro.FormatLinkByTypeNameMultiple(property.type)|trim }}|<a href="#${{ property.name|lower }}">{{ property.name }}</a>|{{ property.summary|raw }}|{{ property.default }}|
+                {%- elseif property.deprecated -%}
+                    |{{ 'inherited ' }}{%- if property.line == 0 -%}{{ 'magic ' }}{%- endif -%}{%- if property.writeOnly -%}{{ 'writeonly ' }}{%- endif -%}{%- if property.readOnly -%}{{ 'readonly ' }}{%- endif -%}{{ property.visibility }} {%- if property.static -%}{{ 'static ' }}{%- endif -%}{{ macro.FormatLinkByTypeNameMultiple(property.type)|trim }}|<a href="#${{ property.name|lower }}">~~{{ property.name }}~~</a><br/><sub>@deprecated</sub>|{{ property.summary|raw }}|{{ property.default }}|
+                {%- endif -%}
+            {%- endif ~%}
+        {%~ endif -%}
+    {%- endfor -%}
+{% endmacro %}
+
+{# Properties #}
+{% macro Properties(node) %}
+    {%- for property in properties(node) -%}
+        {%- if property.parent.FullyQualifiedStructuralElementName == node.FullyQualifiedStructuralElementName ~%}
+            {%~ include 'indexes_properties.md.twig' -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {%- for property in properties(node) -%}
+        {%- if property.parent.FullyQualifiedStructuralElementName != node.FullyQualifiedStructuralElementName -%}
+            {%- if property.visibility != 'private' ~%}
+                {%~ include 'indexes_properties.md.twig' -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{% endmacro %}
+
+{# Methods Table #}
+{% macro MethodsTable(node) %}
+    {%- for method in methods(node) -%}
+        {%- if method.parent.FullyQualifiedStructuralElementName == node.FullyQualifiedStructuralElementName -%}
+            {%- if not method.deprecated -%}
+                |{%- if method.line == 0 -%}{{ 'magic ' }}{%- endif -%}{{ method.visibility }} {%- if method.static -%}{{ ' static ' }}{%- endif -%}|<a href="#{{ method.name|lower }}()">{{ method.name }}</a>|{{ method.summary|raw }}|
+            {%- elseif method.deprecated -%}
+                |{%- if method.line == 0 -%}{{ 'magic ' }}{%- endif -%}{{ method.visibility }} {%- if method.static -%}{{ ' static ' }}{%- endif -%}|<a href="#{{ method.name|lower }}()">~~{{ method.name }}~~</a><br/><sub>@deprecated</sub>|{{ method.summary|raw }}|
+            {%- endif ~%}
+        {%~ endif -%}
+    {%- endfor -%}
+    {%- for method in methods(node) -%}
+        {%- if method.parent.FullyQualifiedStructuralElementName != node.FullyQualifiedStructuralElementName -%}
+            {%- if method.visibility != 'private' -%}
+                {%- if not method.deprecated -%}
+                    |{{ 'inherited ' }}{%- if method.line == 0 -%}{{ 'magic ' }}{%- endif -%}{{ method.visibility }} {%- if method.static -%}{{ ' static ' }}{%- endif -%}|<a href="#{{ method.name|lower }}()">{{ method.name }}</a>|{{ method.summary|raw }}|
+                {%- elseif method.deprecated -%}
+                    |{{ 'inherited ' }}{%- if method.line == 0 -%}{{ 'magic ' }}{%- endif -%}{{ method.visibility }} {%- if method.static -%}{{ ' static ' }}{%- endif -%}|<a href="#{{ method.name|lower }}()">~~{{ method.name }}~~</a><br/><sub>@deprecated</sub>|{{ method.summary|raw }}|
+                {%- endif -%}
+            {%- endif ~%}
+        {%~ endif -%}
+    {%- endfor -%}
+{% endmacro %}
+
+{# Methods #}
+{% macro Methods(node) %}
+    {%- for method in methods(node) -%}
+        {%- if method.parent.FullyQualifiedStructuralElementName == node.FullyQualifiedStructuralElementName ~%}
+            {%~ include 'indexes_methods.md.twig' -%}
+        {%~ endif -%}
+    {%- endfor -%}
+    {%- for method in methods(node) -%}
+        {%- if method.parent.FullyQualifiedStructuralElementName != node.FullyQualifiedStructuralElementName -%}
+            {%- if method.visibility != 'private' ~%}
+                {%~ include 'indexes_methods.md.twig' -%}
+            {%- endif -%}
+        {%~ endif -%}
+    {%- endfor -%}
+{% endmacro %}
+
+{# Cases #}
+{% macro Cases(node) %}
+    {%- for case in cases(node) ~%}
+        {%~ include 'indexes_cases.md.twig' -%}
+    {%- endfor -%}
+{% endmacro %}
+
+{# IndexTitle #}
+{%- macro IndexTitle(prefix, index, id) -%}
+    {%- if index.deprecated -%}
+        <h2><a name="{{ id }}"><del># {{ prefix }} {{ index.name }}</del></a></h2>
+    {%- else -%}
+        <h2><a name="{{ id }}"># {{ prefix }} {{ index.name }}</a></h2>
+    {%- endif -%}
+{%- endmacro -%}
