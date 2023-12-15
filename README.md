@@ -21,7 +21,7 @@ FireHub is a powerful web application framework with elegant syntax.
 ![Packagist Stars](https://img.shields.io/packagist/stars/firehub/socumentor)
 ![Packagist Downloads](https://img.shields.io/packagist/dt/firehub/documentor)
 
-Anything that has been added, changed, deprecated, fixed or removed + any security updates are in [Changelog](./CHANGELOG.md) of this version.
+Anything that has been added, changed, deprecated, fixed or removed + any security updates are in the [Changelog](./CHANGELOG.md) of this version.
 
 ## Documentation
 
@@ -54,7 +54,7 @@ Read our [Support](https://github.com/The-FireHub-Project/.github/blob/master/.g
 
 This software is licensed under the Open Software License version 3.0.
 
-For more details, read full licence [here](./LICENSE.md).
+For more details, read the full license [here](./LICENSE.md).
 
 ***
 
