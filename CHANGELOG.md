@@ -1,5 +1,10 @@
 # Release Notes for v0.x.x.alpha
 
+## [v0.1.1](https://github.com/The-FireHub-Project/Documentor/compare/v0.1.0...v0.1.1) - (2023-12-15)
+
+### Added
+- Created api documentation ([5698216](https://github.com/The-FireHub-Project/Documentor/commit/5698216))
+
 ## v0.1.0 - (2023-12-15)
 
 Initial release.
