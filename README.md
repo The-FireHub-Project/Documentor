@@ -15,7 +15,7 @@ HN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMzMuNjUxI
 [![GitHub contributors](https://img.shields.io/github/contributors/The-FireHub-Project/Documentor?style=flat&labelColor=30363d)](https://github.com/The-FireHub-Project/Documentor/graphs/contributors)
 [![Website](https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Fthe-firehub-project.github.io%2F?style=flat&labelColor=30363d)](https://the-firehub-project.github.io/)
 
-FireHub is a powerful web application framework with elegant syntax.
+Documentor for FireHub Web Application Framework.
 
 ## Installation
 
