@@ -9,8 +9,8 @@
 ## About
 
 [![GitHub Discussions](https://img.shields.io/github/discussions/The-FireHub-Project/Core?style=flat&labelColor=30363d)](https://github.com/orgs/The-FireHub-Project/discussions)
-[![GitHub last commit (branch)](https://img.shields.io/github/last-commit/The-FireHub-Project/Documentor/master?style=flat&labelColor=30363d)](https://github.com/The-FireHub-Project/Documentor/commits/master/)
-[![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/The-FireHub-Project/Documentor/master?style=flat&labelColor=30363d)](https://github.com/The-FireHub-Project/Documentor/commits/master/)
+[![GitHub last commit (branch)](https://img.shields.io/github/last-commit/The-FireHub-Project/Documentor/develop-alpha?style=flat&labelColor=30363d)](https://github.com/The-FireHub-Project/Documentor/commits/develop-alpha/)
+[![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/The-FireHub-Project/Documentor/develop-alpha?style=flat&labelColor=30363d)](https://github.com/The-FireHub-Project/Documentor/commits/develop-alpha/)
 [![GitHub contributors](https://img.shields.io/github/contributors/The-FireHub-Project/Documentor?style=flat&labelColor=30363d)](https://github.com/The-FireHub-Project/Documentor/graphs/contributors)
 [![Website](https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Fthe-firehub-project.github.io%2F?style=flat&labelColor=30363d)](https://the-firehub-project.github.io/)
 
