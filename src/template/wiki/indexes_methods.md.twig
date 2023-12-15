@@ -1,0 +1,92 @@
+{% import "macro.twig" as macro %}
+{{ macro.IndexTitle('method:', method, method.name|lower ~ '()' ) }}
+
+```php
+{{ macro.CodeBlockMethod(method) }}
+```
+
+{{ method.tags.experimental|length > 0 ? macro.Experimental(method, 'method')|raw }}
+
+{{ method.tags.deprecated|length > 0 ? macro.Deprecated(method, 'method')|raw }}
+
+{{ method.final ? macro.Final(method, 'method')|raw }}
+
+{{ method.abstract ? macro.Abstract(method, 'method')|raw }}
+
+{{ method.hasReturnByReference ? macro.ByReference(method, 'method')|raw }}
+
+{{ macro.Summary(method)|raw }}
+
+{{ macro.Description(method)|raw }}
+
+{{ macro.AdditionalInfoIndex(method)|raw }}
+
+{%- for tagName,tags in method.tags if tagName in ['template'] -%}
+{% if tags|length > 0 %}
+
+#### Templates
+{{ macro.Templates(tags, 'method')|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{% if method.arguments|length > 0 %}
+
+#### Parameters
+{{ macro.Parameters(method, tags, 'method')|raw }}
+{%- endif -%}
+
+{%- for tagName,tags in method.tags if tagName in ['throws'] -%}
+{% if tags|length > 0 %}
+
+#### Throws
+{{ macro.Throws(tags, 'method')|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in method.tags if tagName in ['return'] -%}
+{% if tags|length > 0 %}
+
+#### Returns
+{{ macro.Returns(tags, 'method')|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in method.tags if tagName in ['see'] -%}
+{% if tags|length > 0 %}
+
+#### See also
+{{ macro.See(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in method.tags if tagName in ['link'] -%}
+{% if tags|length > 0 %}
+
+#### Links
+{{ macro.Link(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in method.tags if tagName in ['example'] -%}
+{% if tags|length > 0 %}
+
+#### Examples
+{{ macro.Example(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in method.tags if tagName in ['diagram'] -%}
+{% if tags|length > 0 %}
+
+#### Diagram
+{{ macro.Diagram(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in method.tags if tagName in ['math'] -%}
+{% if tags|length > 0 %}
+
+#### Math
+{{ macro.Math(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}

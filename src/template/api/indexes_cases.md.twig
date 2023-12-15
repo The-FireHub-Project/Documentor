@@ -1,0 +1,67 @@
+{% import "macro.twig" as macro %}
+{{ macro.IndexTitle('case:', case, case.name|lower) }}
+
+<code-block lang="php">
+{{ macro.CodeBlockCase(case) }}
+</code-block>
+
+{{ case.tags.experimental|length > 0 ? macro.Experimental(case, 'case')|raw }}
+
+{{ case.tags.deprecated|length > 0 ? macro.Deprecated(case, 'case')|raw }}
+
+{{ macro.CustomTags(case)|raw }}
+
+{{ macro.Summary(case)|raw }}
+
+{{ macro.Description(case)|raw }}
+
+{{ macro.AdditionalInfoIndex(case)|raw }}
+
+{%- for tagName,tags in case.tags if tagName in ['since'] -%}
+{% if tags|length > 0 %}
+
+{{ macro.Since(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in case.tags if tagName in ['uses'] -%}
+{% if tags|length > 0 %}
+
+{{ macro.Uses(tags, 'case')|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in case.tags if tagName in ['used-by'] -%}
+{% if tags|length > 0 %}
+
+{{ macro.UsedBy(tags, 'case')|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in case.tags if tagName in ['see'] -%}
+{% if tags|length > 0 %}
+
+{{ macro.See(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in case.tags if tagName in ['link'] -%}
+{% if tags|length > 0 %}
+
+{{ macro.Link(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in case.tags if tagName in ['diagram'] -%}
+{% if tags|length > 0 %}
+
+{{ macro.Diagram(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in case.tags if tagName in ['math'] -%}
+{% if tags|length > 0 %}
+
+{{ macro.Math(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}

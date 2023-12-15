@@ -1,0 +1,22 @@
+{% import "macro.twig" as macro %}
+```php
+{{ macro.CodeBlock(nodetype) }}
+```
+
+{{ node.tags.experimental|length > 0 ? macro.Experimental(node, nodetype)|raw }}
+
+{{ node.tags.deprecated|length > 0 ? macro.Deprecated(node, nodetype)|raw }}
+
+{{ node.final ? macro.Final(node, nodetype)|raw }}
+
+{{ node.abstract ? macro.Abstract(node, nodetype)|raw }}
+
+{{ node.hasReturnByReference ? macro.ByReference(node, nodetype)|raw }}
+
+{{ macro.Summary(node)|raw }}
+
+{{ macro.Description(node)|raw }}
+
+{{ macro.FileInfo(node, nodetype)|raw }}
+
+{{ macro.AdditionalInfo(node, nodetype)|raw }}

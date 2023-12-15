@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>FireHub Core Wiki Documentation</name>
+    <author>Danijel Galić</author>
+    <email>danijel.galic@outlook.com</email>
+    <version>1.0.0</version>
+    <transformations>
+        <transformation writer="twig" source="index.md.twig" artifact="topics/wiki/Home.md"/>
+        <transformation writer="twig" source="sidebar.md.twig" artifact="topics/wiki/_Sidebar.md"/>
+        <transformation writer="twig" source="footer.md.twig" artifact="topics/wiki/_Footer.md"/>
+        <transformation writer="twig" query="indexes.classes" source="class.md.twig" artifact="topics/wiki/Wiki {{Name}}.md"/>
+        <transformation writer="twig" query="indexes.enums" source="enum.md.twig" artifact="topics/wiki/Wiki {{Name}}.md"/>
+        <transformation writer="twig" query="indexes.functions" source="function.md.twig" artifact="topics/wiki/Wiki {{Name}}.md"/>
+        <transformation writer="twig" query="indexes.constants" source="constant.md.twig" artifact="topics/wiki/Wiki {{Name}}.md"/>
+    </transformations>
+    <parameters>
+        <parameter key="twig-debug">false</parameter>
+    </parameters>
+</template>

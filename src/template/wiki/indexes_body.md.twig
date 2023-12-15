@@ -1,0 +1,119 @@
+{% import "macro.twig" as macro %}
+
+{%- for tagName,tags in node.tags if tagName in ['template'] -%}
+{% if tags|length > 0 %}
+
+### Templates
+{{ macro.Templates(tags, nodetype)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{% if node.arguments|length > 0 %}
+
+### Parameters
+{{ macro.Parameters(node, tags, nodetype)|raw }}
+{%- endif -%}
+
+{%- for tagName,tags in node.tags if tagName in ['throws'] -%}
+{% if tags|length > 0 %}
+
+### Throws
+{{ macro.Throws(tags, nodetype)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in node.tags if tagName in ['return'] -%}
+{% if tags|length > 0 %}
+
+### Returns
+{{ macro.Returns(tags, nodetype)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in node.tags if tagName in ['see'] -%}
+{% if tags|length > 0 %}
+
+### See also
+{{ macro.See(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in node.tags if tagName in ['link'] -%}
+{% if tags|length > 0 %}
+
+### Links
+{{ macro.Link(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in node.tags if tagName in ['example'] -%}
+{% if tags|length > 0 %}
+
+### Examples
+{{ macro.Example(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in node.tags if tagName in ['diagram'] -%}
+{% if tags|length > 0 %}
+
+### Diagrams
+{{ macro.Diagram(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- for tagName,tags in node.tags if tagName in ['math'] -%}
+{% if tags|length > 0 %}
+
+### Math
+{{ macro.Math(tags)|raw }}
+{%- endif -%}
+{%- endfor -%}
+
+{%- if macro.RecursiveConstantsTable(node)|trim|length > 0 %}
+
+### Constants
+| Type | Name | Title | Value |
+|:-----|:-----|:------|:------|
+{{ macro.RecursiveConstantsTable(node) }}
+{%- endif -%}
+
+{%- if node.cases|length > 0 %}
+
+### Cases
+| Name | Title | Value |
+|:-----|:------|:------|
+{{ macro.CasesTable(node) }}
+{%- endif -%}
+
+{%- if macro.PropertiesTable(node) > 0 %}
+
+### Properties
+| Name | Title | Value | Default |
+|:-----|:------|:------|:--------|
+{{ macro.PropertiesTable(node) }}
+{%- endif -%}
+
+{%- if node.methods|length > 0 %}
+
+### Methods
+| Type | Name | Title |
+|:-----|:-----|:------|
+{{ macro.MethodsTable(node) }}
+{%- endif -%}
+
+{%- if macro.RecursiveConstants(node)|trim|length > 0 %}
+{{ macro.RecursiveConstants(node) }}
+{%- endif -%}
+
+{%- if macro.Properties(node)|trim|length > 0 %}
+{{ macro.Properties(node) }}
+{%- endif -%}
+
+{%- if macro.Methods(node)|trim|length > 0 %}
+{{ macro.Methods(node) }}
+{%- endif -%}
+
+{%- if macro.Cases(node)|trim|length > 0 %}
+{{ macro.Cases(node) }}
+{%- endif -%}
