@@ -4,6 +4,7 @@
     "type": "library",
     "keywords": ["php", "documentor", "firehub"],
     "homepage": "https://the-firehub-project.github.io/Documentor/",
+    "license": "OSL-3.0",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "authors": [
