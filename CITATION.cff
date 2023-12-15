@@ -1,0 +1,32 @@
+message: If you use this software, please cite it using the metadata from this file.
+title: Documentor
+abstract: FireHub Web Application Framework
+type: software
+version: v1.0.0
+cff-version: 1.2.0
+date-released: 2023-12-15
+license: OSL-3.0
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.10390862
+    description: The versioned DOI for version 1.* of the work.
+keywords:
+  - firehub
+  - documentor
+  - php
+authors:
+  - family-names: Galić
+    given-names: Danijel
+    alias: dieselxxx
+    address: "Privalj b.b. Kočerin"
+    post-code: 88226
+    city: "Široki Brijeg"
+    region: "Hercegovina"
+    country: "BA"
+    email: "danijel.galic@outlook.com"
+    orcid: "https://orcid.org/0000-0002-4447-1352"
+    tel: +387-63-407111
+    website: "https://the-firehub-project.github.io/"
+url: "https://the-firehub-project.github.io/core/"
+repository-code: "https://github.com/The-FireHub-Project/Documentor"
+repository-artifact: "https://packagist.org/packages/firehub/documentor"
