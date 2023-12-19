@@ -1,5 +1,10 @@
 # Release Notes for v0.x.x.alpha
 
+## [v0.1.3](https://github.com/The-FireHub-Project/Documentor/compare/v0.1.2...v0.1.3) - (2023-12-19)
+
+### Added
+- Added CDATE to code blocks ([97f7078](https://github.com/The-FireHub-Project/Documentor/commit/97f7078))
+
 ## [v0.1.2](https://github.com/The-FireHub-Project/Documentor/compare/v0.1.1...v0.1.2) - (2023-12-19)
 
 ### Added
