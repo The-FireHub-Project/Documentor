@@ -79,9 +79,9 @@
             {{- parameter.default ? ' = ' ~ parameter.default|raw -}}
         {%- endfor -%})
     {%- else -%}
-        {{ ' ' ~ node.name }}{{- node.tags.return|first.type ? ' ' ~ node.tags.return|first.type -}}
+        {{ ' ' ~ node.name }}{{- node.tags.return|first.type ? ' ' ~ node.tags.return|first.type|raw -}}
     {%- endif -%}
-    {{- node.tags.return|first.type ? ':' ~ node.tags.return|first.type -}}
+    {{- node.tags.return|first.type ? ':' ~ node.tags.return|first.type|raw -}}
     {{- node.value ? ' = ' ~ node.value|raw -}}
 {%- endmacro -%}
 
@@ -121,7 +121,7 @@
             {%- if parameter.default -%}{{ ' = ' ~ parameter.default|raw }}{%- endif -%}
         {%- endif -%}
     {%- endfor -%})
-    {%- if method.tags.return|first.type -%}:{{ method.tags.return|first.type }}{%- endif -%}
+    {%- if method.tags.return|first.type -%}:{{ method.tags.return|first.type|raw }}{%- endif -%}
 {%- endmacro -%}
 
 {# Code Block Case #}
