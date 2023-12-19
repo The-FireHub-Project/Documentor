@@ -67,6 +67,7 @@
 
 {# Code Block #}
 {%- macro CodeBlock(nodetype) -%}
+    {{ '<![CDATA[' }}
     {{- node.final ? 'final ' -}}
     {{- node.abstract ? 'abstract ' -}}
     {{- nodetype -}}{%- if node.type -%}{{- ' ' ~ node.type -}}{%- endif -%}
@@ -83,18 +84,22 @@
     {%- endif -%}
     {{- node.tags.return|first.type ? ':' ~ node.tags.return|first.type|raw -}}
     {{- node.value ? ' = ' ~ node.value|raw -}}
+    {{ ']]>' }}
 {%- endmacro -%}
 
 {# Code Block Constant #}
 {%- macro CodeBlockConst(constant) -%}
 {% import _self as self %}
+    {{ '<![CDATA[' }}
     {{- constant.final ? 'final ' -}}
     {{ constant.visibility }} {{ self.varType(constant) }} {{ constant.name ~ ' = ' ~ constant.value|raw }}
+    {{ ']]>' }}
 {%- endmacro -%}
 
 {# Code Block Property #}
 {%- macro CodeBlockProperty(property) -%}
 {% import _self as self %}
+    {{ '<![CDATA[' }}
     {{- property.line == 0 ? 'magic ' -}}
     {{- property.writeOnly ? 'writeonly ' -}}
     {{- property.readOnly ? 'readonly ' -}}
@@ -102,11 +107,13 @@
     {{- property.static or property.description.bodyTemplate starts with '{static}' ? 'static ' -}}
     {{ self.varType(property) }} ${{ property.name }}
     {{- property.default ? ' = ' ~ property.default|raw -}}
+    {{ ']]>' }}
 {%- endmacro -%}
 
 {# Code Block Method #}
 {%- macro CodeBlockMethod(method) -%}
 {% import _self as self %}
+    {{ '<![CDATA[' }}
     {{- method.abstract ? 'abstract ' -}}
     {{- method.final ? 'final ' -}}
     {{- method.visibility ~ ' ' -}}
@@ -122,11 +129,14 @@
         {%- endif -%}
     {%- endfor -%})
     {%- if method.tags.return|first.type -%}:{{ method.tags.return|first.type|raw }}{%- endif -%}
+    {{ ']]>' }}
 {%- endmacro -%}
 
 {# Code Block Case #}
 {%- macro CodeBlockCase(case) -%}
+    {{ '<![CDATA[' }}
     {{ case.name }}{% if case.value %}{{ ' = ' ~ case.value|raw }}{% endif %}
+    {{ ']]>' }}
 {%- endmacro -%}
 
 {# Experimental #}
