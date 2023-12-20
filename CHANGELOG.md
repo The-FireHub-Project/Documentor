@@ -1,5 +1,10 @@
 # Release Notes for v0.x.x.alpha
 
+## [v0.1.6](https://github.com/The-FireHub-Project/Documentor/compare/v0.1.5...v0.1.6) - (2023-12-20)
+
+### Fixed
+- Fix param description to exclude CDATA ([f53cb06](https://github.com/The-FireHub-Project/Documentor/commit/f53cb06))
+
 ## [v0.1.5](https://github.com/The-FireHub-Project/Documentor/compare/v0.1.4...v0.1.5) - (2023-12-20)
 
 ### Fixed
