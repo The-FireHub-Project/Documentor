@@ -1,6 +1,11 @@
 # Release Notes for v0.x.x.alpha
 
-## [v0.1.3](https://github.com/The-FireHub-Project/Documentor/compare/v0.1.3...v0.1.4) - (2023-12-20)
+## [v0.1.5](https://github.com/The-FireHub-Project/Documentor/compare/v0.1.4...v0.1.5) - (2023-12-20)
+
+### Fixed
+- Changed param description ([1482e56](https://github.com/The-FireHub-Project/Documentor/commit/1482e56))
+
+## [v0.1.4](https://github.com/The-FireHub-Project/Documentor/compare/v0.1.3...v0.1.4) - (2023-12-20)
 
 ### Added
 - Added possibility to include code on parameters and returns ([dd89967](https://github.com/The-FireHub-Project/Documentor/commit/dd89967))
