@@ -224,7 +224,7 @@ This {{ nodetype }} is returned by **refrence**.
     {% import _self as self %}
     {%- for parameter in node.arguments %}
 
-* {{ parameter.byReference ? 'by reference ' }}{{ parameter.isVariadic ? 'variadic ' }}{{ self.FormatLinkByTypeNameMultiple(parameter.type) }} **${{ parameter.name }}**{% if parameter.default %} = {{ parameter.default|raw }}{% endif %}{% if parameter.description|length > 0 %} - _{{ parameter.description|striptags|trim }}_{% endif %}
+* {{ parameter.byReference ? 'by reference ' }}{{ parameter.isVariadic ? 'variadic ' }}{{ self.FormatLinkByTypeNameMultiple(parameter.type) }} **${{ parameter.name }}**{% if parameter.default %} = {{ parameter.default|raw }}{% endif %}{% if parameter.description|length > 0 %} - _{{ parameter.description|striptags('<code>')|trim|raw }}_{% endif %}
     {%- endfor -%}
 {%- endmacro -%}
 
@@ -242,7 +242,7 @@ This {{ nodetype }} is returned by **refrence**.
     {% import _self as self %}
     {%- for tag in tags %}
 
-* {{ self.FormatLinkByTypeNameMultiple(tag.type) }}{% if tag.description|length > 0 %} - _{{ tag.description|striptags|trim }}_{% endif %}
+* {{ self.FormatLinkByTypeNameMultiple(tag.type) }}{% if tag.description|length > 0 %} - _{{ tag.description|striptags('<code>')|trim|raw }}_{% endif %}
     {%- endfor -%}
 {%- endmacro -%}
 
