@@ -519,7 +519,7 @@
     <def title="This {{ nodetype }} has parameters:">
         <list>
             {%- for parameter in node.arguments -%}
-                <li>{{ parameter.byReference ? 'by reference ' }}{{ parameter.isVariadic ? 'variadic ' }}{{ self.FormatLinkByTypeNameMultiple(parameter.type) }} <format style="bold">${{ parameter.name }}</format>{% if parameter.default %} = {{ parameter.default|raw }}{% endif %}{% if parameter.description|length > 0 %} - <format style="italic">{{ parameter.description|striptags('<code>')|trim|raw }}</format>{% endif %}</li>
+                <li>{{ parameter.byReference ? 'by reference ' }}{{ parameter.isVariadic ? 'variadic ' }}{{ self.FormatLinkByTypeNameMultiple(parameter.type) }} <format style="bold">${{ parameter.name }}</format>{% if parameter.default %} = {{ parameter.default|raw }}{% endif %}{% if parameter.description|length > 0 %} - <format style="italic">{{ parameter.description|trim|replace({'<p>':'', '</p>':''})|raw }}</format>{% endif %}</li>
             {%- endfor -%}
         </list>
     </def>
@@ -547,7 +547,7 @@
     <def title="This {{ nodetype }} returns:">
         <list>
             {%- for tag in tags -%}
-                <li>{{ self.FormatLinkByTypeNameMultiple(tag.type) }}{% if tag.description|length > 0 %} - <format style="italic">{{ tag.description|striptags('<code>')|trim|raw }}</format>{% endif %}</li>
+                <li>{{ self.FormatLinkByTypeNameMultiple(tag.type) }}{% if tag.description|length > 0 %} - <format style="italic">{{ tag.description|trim|raw }}</format>{% endif %}</li>
             {%- endfor -%}
         </list>
     </def>
