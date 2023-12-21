@@ -190,7 +190,8 @@
 {# Custom Tags #}
 {%- macro CustomTags(node) -%}
 {%- for tagName,tags in node.file.tags if tagName in [
-    'note', 'warning', 'todo', 'fixme', 'investigate', 'optimize',
+    'note', 'tip', 'important', 'caution', 'warning',
+    'todo', 'fixme', 'investigate', 'optimize',
     'hack', 'bug', 'incident', 'refactor',
     'performance', 'security', 'suggestion', 'needs-testing'
 ]
@@ -198,11 +199,31 @@
     {%- for tag in tags -%}
         {%- if tag.name == 'note' -%}
             <note>
+                <p><format style="bold">Note:</format></p>
                 <p>{{ tag.description|raw }}</p>
             </note>
         {%- endif -%}
+        {%- if tag.name == 'tip' -%}
+            <tip>
+                <p><format style="bold">Tip:</format></p>
+                <p>{{ tag.description|raw }}</p>
+            </tip>
+        {%- endif -%}
+        {%- if tag.name == 'important' -%}
+            <warning>
+                <p><format style="bold">Important:</format></p>
+                <p>{{ tag.description|raw }}</p>
+            </warning>
+        {%- endif -%}
+        {%- if tag.name == 'caution' -%}
+            <warning>
+                <p><format style="bold">Caution:</format></p>
+                <p>{{ tag.description|raw }}</p>
+            </warning>
+        {%- endif -%}
         {%- if tag.name == 'warning' -%}
             <warning>
+                <p><format style="bold">Warning:</format></p>
                 <p>{{ tag.description|raw }}</p>
             </warning>
         {%- endif -%}
@@ -281,7 +302,8 @@
     {%- endfor -%}
 {%- endfor -%}
 {% for tagName,tags in node.tags if tagName in [
-    'note', 'warning', 'todo', 'fixme', 'investigate', 'optimize',
+    'note', 'tip', 'important', 'caution', 'warning',
+    'todo', 'fixme', 'investigate', 'optimize',
     'hack', 'bug', 'incident', 'refactor',
     'performance', 'security', 'suggestion', 'needs-testing'
 ]
@@ -289,11 +311,31 @@
     {%- for tag in tags -%}
         {%- if tag.name == 'note' -%}
             <note>
+                <p><format style="bold">Note:</format></p>
                 <p>{{ tag.description|raw }}</p>
             </note>
         {%- endif -%}
+        {%- if tag.name == 'tip' -%}
+            <tip>
+                <p><format style="bold">Tip:</format></p>
+                <p>{{ tag.description|raw }}</p>
+            </tip>
+        {%- endif -%}
+        {%- if tag.name == 'important' -%}
+            <warning>
+                <p><format style="bold">Important:</format></p>
+                <p>{{ tag.description|raw }}</p>
+            </warning>
+        {%- endif -%}
+        {%- if tag.name == 'caution' -%}
+            <warning>
+                <p><format style="bold">Caution:</format></p>
+                <p>{{ tag.description|raw }}</p>
+            </warning>
+        {%- endif -%}
         {%- if tag.name == 'warning' -%}
             <warning>
+                <p><format style="bold">Warning:</format></p>
                 <p>{{ tag.description|raw }}</p>
             </warning>
         {%- endif -%}

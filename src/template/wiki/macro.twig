@@ -165,12 +165,24 @@ This {{ nodetype }} is returned by **refrence**.
 {# Custom Tags #}
 {%- macro CustomTags(node) -%}
 {%- for tagName,tags in node.file.tags if tagName in [
-    'note', 'warning'
+    'note', 'tip', 'important', 'caution', 'warning'
 ]
 -%}
     {%- for tag in tags -%}
         {%- if tag.name == 'note' -%}
             > [!NOTE]
+            {{ tag.description|raw }}
+        {%- endif -%}
+        {%- if tag.name == 'tip' -%}
+            > [!TIP]
+            {{ tag.description|raw }}
+        {%- endif -%}
+        {%- if tag.name == 'important' -%}
+            > [!important]
+            {{ tag.description|raw }}
+        {%- endif -%}
+        {%- if tag.name == 'caution' -%}
+            > [!CAUTION]
             {{ tag.description|raw }}
         {%- endif -%}
         {%- if tag.name == 'warning' -%}
@@ -180,12 +192,24 @@ This {{ nodetype }} is returned by **refrence**.
     {%- endfor -%}
 {%- endfor -%}
 {% for tagName,tags in node.tags if tagName in [
-    'note', 'warning'
+    'note', 'tip', 'important', 'caution', 'warning'
 ]
 %}
     {%- for tag in tags -%}
         {%- if tag.name == 'note' -%}
             > [!NOTE]
+            {{ tag.description|raw }}
+        {%- endif -%}
+        {%- if tag.name == 'tip' -%}
+            > [!TIP]
+            {{ tag.description|raw }}
+        {%- endif -%}
+        {%- if tag.name == 'important' -%}
+            > [!important]
+            {{ tag.description|raw }}
+        {%- endif -%}
+        {%- if tag.name == 'caution' -%}
+            > [!CAUTION]
             {{ tag.description|raw }}
         {%- endif -%}
         {%- if tag.name == 'warning' -%}
