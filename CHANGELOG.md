@@ -1,5 +1,10 @@
 # Release Notes for v0.x.x.alpha
 
+## [v0.2.0](https://github.com/The-FireHub-Project/Documentor/compare/v0.1.6...v0.2.0) - (2023-12-21)
+
+### Added
+- Added note and warning tags for indexes ([151547d](https://github.com/The-FireHub-Project/Documentor/commit/151547d))
+
 ## [v0.1.6](https://github.com/The-FireHub-Project/Documentor/compare/v0.1.5...v0.1.6) - (2023-12-20)
 
 ### Fixed
