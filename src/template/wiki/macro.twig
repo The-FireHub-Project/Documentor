@@ -162,6 +162,40 @@ This is an **abstract** {{ nodetype }} that cannot be instantiated directly.
 This {{ nodetype }} is returned by **refrence**.
 {%- endmacro -%}
 
+{# Custom Tags #}
+{%- macro CustomTags(node) -%}
+{%- for tagName,tags in node.file.tags if tagName in [
+    'note', 'warning'
+]
+-%}
+    {%- for tag in tags -%}
+        {%- if tag.name == 'note' -%}
+            > [!NOTE]
+            {{ tag.description|raw }}
+        {%- endif -%}
+        {%- if tag.name == 'warning' -%}
+            > [!WARNING]
+            {{ tag.description|raw }}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endfor -%}
+{% for tagName,tags in node.tags if tagName in [
+    'note', 'warning'
+]
+%}
+    {%- for tag in tags -%}
+        {%- if tag.name == 'note' -%}
+            > [!NOTE]
+            {{ tag.description|raw }}
+        {%- endif -%}
+        {%- if tag.name == 'warning' -%}
+            > [!WARNING]
+            {{ tag.description|raw }}
+        {%- endif -%}
+    {%- endfor -%}
+{% endfor %}
+{%- endmacro -%}
+
 {# FileInfo #}
 {%- macro FileInfo(node, nodetype) -%}
     {%- if node.file.author|length > 0 -%}

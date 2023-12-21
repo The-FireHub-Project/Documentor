@@ -9,6 +9,8 @@
 
 {{ case.tags.deprecated|length > 0 ? macro.Deprecated(case, 'case')|raw }}
 
+{{ macro.CustomTags(case)|raw }}
+
 {{ macro.Summary(case)|raw }}
 
 {{ macro.Description(case)|raw }}

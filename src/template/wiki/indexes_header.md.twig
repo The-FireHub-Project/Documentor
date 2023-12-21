@@ -13,6 +13,8 @@
 
 {{ node.hasReturnByReference ? macro.ByReference(node, nodetype)|raw }}
 
+{{ macro.CustomTags(node)|raw }}
+
 {{ macro.Summary(node)|raw }}
 
 {{ macro.Description(node)|raw }}

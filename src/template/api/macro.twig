@@ -190,12 +190,22 @@
 {# Custom Tags #}
 {%- macro CustomTags(node) -%}
 {%- for tagName,tags in node.file.tags if tagName in [
-    'todo', 'fixme', 'investigate', 'optimize',
+    'note', 'warning', 'todo', 'fixme', 'investigate', 'optimize',
     'hack', 'bug', 'incident', 'refactor',
     'performance', 'security', 'suggestion', 'needs-testing'
 ]
 -%}
     {%- for tag in tags -%}
+        {%- if tag.name == 'note' -%}
+            <note>
+                <p>{{ tag.description|raw }}</p>
+            </note>
+        {%- endif -%}
+        {%- if tag.name == 'warning' -%}
+            <warning>
+                <p>{{ tag.description|raw }}</p>
+            </warning>
+        {%- endif -%}
         {%- if tag.name == 'todo' -%}
             <tip>
                 <p><format style="bold" color="DarkBlue">Todo:</format></p>
@@ -271,12 +281,22 @@
     {%- endfor -%}
 {%- endfor -%}
 {% for tagName,tags in node.tags if tagName in [
-    'todo', 'fixme', 'investigate', 'optimize',
+    'note', 'warning', 'todo', 'fixme', 'investigate', 'optimize',
     'hack', 'bug', 'incident', 'refactor',
     'performance', 'security', 'suggestion', 'needs-testing'
 ]
 %}
     {%- for tag in tags -%}
+        {%- if tag.name == 'note' -%}
+            <note>
+                <p>{{ tag.description|raw }}</p>
+            </note>
+        {%- endif -%}
+        {%- if tag.name == 'warning' -%}
+            <warning>
+                <p>{{ tag.description|raw }}</p>
+            </warning>
+        {%- endif -%}
         {%- if tag.name == 'todo' -%}
             <tip>
                 <p><format style="bold" color="DarkBlue">Todo:</format></p>

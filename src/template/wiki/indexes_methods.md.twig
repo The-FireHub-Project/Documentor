@@ -2,7 +2,9 @@
 {{ macro.IndexTitle('method:', method, method.name|lower ~ '()' ) }}
 
 ```php
+{% autoescape false %}
 {{ macro.CodeBlockMethod(method) }}
+{% endautoescape %}
 ```
 
 {{ method.tags.experimental|length > 0 ? macro.Experimental(method, 'method')|raw }}
@@ -14,6 +16,8 @@
 {{ method.abstract ? macro.Abstract(method, 'method')|raw }}
 
 {{ method.hasReturnByReference ? macro.ByReference(method, 'method')|raw }}
+
+{{ macro.CustomTags(method)|raw }}
 
 {{ macro.Summary(method)|raw }}
 

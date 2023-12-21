@@ -13,6 +13,8 @@
 
 {{ property.hasReturnByReference ? macro.ByReference(property, 'property')|raw }}
 
+{{ macro.CustomTags(property)|raw }}
+
 {{ macro.Summary(property)|raw }}
 
 {{ macro.Description(property)|raw }}
