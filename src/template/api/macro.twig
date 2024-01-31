@@ -744,9 +744,9 @@
 {%- for property in properties(node) -%}
     {%- if property.parent.FullyQualifiedStructuralElementName == node.FullyQualifiedStructuralElementName -%}
         {%- if not property.deprecated -%}
-            |{%- if property.line == 0 -%}{{ 'magic ' }}{%- endif -%}{%- if property.writeOnly -%}{{ 'writeonly ' }}{%- endif -%}{%- if property.readOnly -%}{{ 'readonly ' }}{%- endif -%}{{ property.visibility }} {%- if property.static or property.description.bodyTemplate starts with '{static}' -%}{{ 'static ' }}{%- endif -%}{{ macro.FormatLinkByTypeNameMultiple(property.type)|trim }}|<a href="#${{ property.name|lower }}">{{ property.name }}</a>|{{ property.summary|raw }}|{{ property.default }}|
+            |{%- if property.line == 0 -%}{{ 'magic ' }}{%- endif -%}{%- if property.writeOnly -%}{{ 'writeonly ' }}{%- endif -%}{%- if property.readOnly -%}{{ 'readonly ' }}{%- endif -%}{{ property.visibility }} {%- if property.static or property.description.bodyTemplate starts with '{static}' -%}{{ ' static ' }}{%- endif -%}{{ macro.FormatLinkByTypeNameMultiple(property.type)|trim }}|<a href="#${{ property.name|lower }}">{{ property.name }}</a>|{{ property.summary|raw }}|{{ property.default }}|
         {%- elseif property.deprecated -%}
-            |{%- if property.line == 0 -%}{{ 'magic ' }}{%- endif -%}{%- if property.writeOnly -%}{{ 'writeonly ' }}{%- endif -%}{%- if property.readOnly -%}{{ 'readonly ' }}{%- endif -%}{{ property.visibility }} {%- if property.static -%}{{ 'static ' }}{%- endif -%}{{ macro.FormatLinkByTypeNameMultiple(property.type)|trim }}|<a href="#${{ property.name|lower }}">~~{{ property.name }}~~</a><br/><sub>@deprecated</sub>|{{ property.summary|raw }}|{{ property.default }}|
+            |{%- if property.line == 0 -%}{{ 'magic ' }}{%- endif -%}{%- if property.writeOnly -%}{{ 'writeonly ' }}{%- endif -%}{%- if property.readOnly -%}{{ 'readonly ' }}{%- endif -%}{{ property.visibility }} {%- if property.static -%}{{ ' static ' }}{%- endif -%}{{ macro.FormatLinkByTypeNameMultiple(property.type)|trim }}|<a href="#${{ property.name|lower }}">~~{{ property.name }}~~</a><br/><sub>@deprecated</sub>|{{ property.summary|raw }}|{{ property.default }}|
         {%- endif ~%}
     {%~ endif -%}
 {%- endfor -%}
