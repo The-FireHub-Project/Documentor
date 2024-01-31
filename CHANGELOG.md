@@ -1,5 +1,11 @@
 # Release Notes for v0.x.x.alpha
 
+## [v0.2.2](https://github.com/The-FireHub-Project/Documentor/compare/v0.2.1...v0.2.2) - (2024-01-31)
+
+### Fixed
+- Added one more space for static index properties ([e06eda8](https://github.com/The-FireHub-Project/Documentor/commit/e06eda8))
+- Fixed naming scheme for property order in index table ([72a11b7](https://github.com/The-FireHub-Project/Documentor/commit/72a11b7))
+
 ## [v0.2.1](https://github.com/The-FireHub-Project/Documentor/compare/v0.2.0...v0.2.1) - (2023-12-21)
 
 ### Added
